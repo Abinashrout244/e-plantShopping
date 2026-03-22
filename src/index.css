@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    font-family: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+      sans-serif;
+    color: #1e1b16;
+    background: radial-gradient(circle at top, #fbf6ea 0%, #f3ecdf 45%, #ebe1d2 100%);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", "Times New Roman", serif;
+    letter-spacing: 0.02em;
+  }
+}
