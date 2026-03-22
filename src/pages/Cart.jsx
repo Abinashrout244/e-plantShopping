@@ -1,69 +1,67 @@
-import Navbar from "../components/NavBar";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
 import { Link } from "react-router-dom";
+import Navbar from "../components/NavBar";
 
 function Cart() {
   const items = useSelector((state) => state.cart.items);
 
+  // ✅ TOTAL ITEMS
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-  const totalCost = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+  // ✅ TOTAL AMOUNT (IMPORTANT FIX)
+  const totalAmount = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
   return (
     <>
       <Navbar />
 
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="mb-10 rounded-3xl border border-emerald-950/10 bg-white/75 p-8 shadow-[0_25px_70px_-45px_rgba(14,45,33,0.6)] backdrop-blur">
-          <p className="mb-3 text-xs uppercase tracking-[0.5em] text-emerald-900/60">
-            Private Cart
-          </p>
-          <h2 className="mb-4 text-4xl font-semibold text-emerald-950">
-            Your Botanical Collection
-          </h2>
-          <div className="flex flex-wrap items-center gap-6 text-sm uppercase tracking-[0.35em] text-emerald-900/70">
-            <span>Total Items: {totalItems}</span>
-            <span>Total Cost: Rs. {totalCost}</span>
-          </div>
-        </div>
+      <div className="max-w-5xl mx-auto p-6">
+        {/* Title */}
+        <h2 className="text-3xl font-bold mb-6 text-center text-green-700">
+          🛒 Shopping Cart
+        </h2>
 
-        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-          <div className="space-y-6">
+        {/* Cart Items */}
+        {items.length === 0 ? (
+          <div className="text-center text-gray-500 mt-10">
+            <p className="text-xl">Your cart is empty 🪴</p>
+            <p className="text-sm mt-2">Add some beautiful plants!</p>
+          </div>
+        ) : (
+          <div className="grid gap-4">
             {items.map((item) => (
               <CartItem key={item.id} item={item} />
             ))}
           </div>
+        )}
+        <div className="bg-white shadow-md rounded-xl p-4 mb-6 flex justify-between items-center">
+          <p className="text-lg">
+            Total Items: <span className="font-semibold">{totalItems}</span>
+          </p>
 
-          <div className="h-fit rounded-3xl border border-emerald-950/10 bg-emerald-950 p-8 text-amber-50 shadow-[0_25px_70px_-45px_rgba(14,45,33,0.8)]">
-            <h3 className="mb-4 text-2xl font-semibold">Order Summary</h3>
-            <p className="mb-8 text-sm text-amber-100/80">
-              Hand-wrapped, moisture-secure packaging with priority delivery.
-            </p>
-            <div className="mb-8 space-y-3 text-xs uppercase tracking-[0.35em]">
-              <div className="flex items-center justify-between">
-                <span>Items</span>
-                <span>{totalItems}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Total</span>
-                <span>Rs. {totalCost}</span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <Link to="/products">
-                <button className="w-full rounded-full border border-amber-200/30 bg-transparent px-6 py-3 text-xs uppercase tracking-[0.35em] text-amber-50 transition hover:bg-amber-50/10">
-                  Continue Shopping
-                </button>
-              </Link>
+          <p className="text-lg">
+            Total Amount:
+            <span className="font-semibold text-green-600 ml-2">
+              ₹{totalAmount}
+            </span>
+          </p>
+        </div>
 
-              <button
-                onClick={() => alert("Order placed successfully!")}
-                className="w-full rounded-full border border-amber-500/40 bg-amber-600 px-6 py-3 text-xs uppercase tracking-[0.35em] text-amber-50 shadow-[0_18px_45px_-30px_rgba(96,64,28,0.9)] transition hover:-translate-y-0.5 hover:bg-amber-500"
-              >
-                Checkout
-              </button>
-            </div>
-          </div>
+        {/* Buttons */}
+        <div className="mt-8 flex justify-between items-center">
+          <Link to="/products">
+            <button className="bg-gray-500 hover:bg-gray-600 text-white px-5 py-2 rounded-lg transition">
+              ⬅ Continue Shopping
+            </button>
+          </Link>
+
+          <button
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition"
+            onClick={() => alert("Order placed successfully!")}
+          >
+            ✅ Checkout
+          </button>
         </div>
       </div>
     </>

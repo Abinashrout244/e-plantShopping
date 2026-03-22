@@ -90,10 +90,10 @@ function ProductList() {
                     {/* BUTTON */}
                     <button
                       disabled={isAdded(p.id)}
-                      className={`mt-3 w-full py-2 rounded-lg text-white font-medium transition ${
+                      className={`px-3 py-2 mt-2 text-white w-full rounded-lg ${
                         isAdded(p.id)
                           ? "bg-gray-400 cursor-not-allowed"
-                          : "bg-green-600 hover:bg-green-700"
+                          : "bg-green-500"
                       }`}
                       onClick={() => dispatch(addItem(p))}
                     >
