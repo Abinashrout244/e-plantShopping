@@ -5,7 +5,7 @@ import Cart from "./pages/Cart";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/e-plantShopping">
       <Routes>
         <Route path="/" element={<AboutUs />} />
         <Route path="/products" element={<ProductList />} />
