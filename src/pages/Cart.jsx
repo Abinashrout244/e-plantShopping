@@ -56,7 +56,10 @@ function Cart() {
                 </button>
               </Link>
 
-              <button className="w-full rounded-full border border-amber-500/40 bg-amber-600 px-6 py-3 text-xs uppercase tracking-[0.35em] text-amber-50 shadow-[0_18px_45px_-30px_rgba(96,64,28,0.9)] transition hover:-translate-y-0.5 hover:bg-amber-500">
+              <button
+                onClick={() => alert("Order placed successfully!")}
+                className="w-full rounded-full border border-amber-500/40 bg-amber-600 px-6 py-3 text-xs uppercase tracking-[0.35em] text-amber-50 shadow-[0_18px_45px_-30px_rgba(96,64,28,0.9)] transition hover:-translate-y-0.5 hover:bg-amber-500"
+              >
                 Checkout
               </button>
             </div>

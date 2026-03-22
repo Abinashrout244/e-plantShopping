@@ -1,54 +1,57 @@
 import { useDispatch } from "react-redux";
-import { increaseQty, decreaseQty, removeItem } from "../store/CartSlice";
+import { updateQuantity, removeItem } from "../store/CartSlice";
 
 function CartItem({ item }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="rounded-3xl border border-emerald-950/10 bg-white/80 p-6 shadow-[0_18px_55px_-40px_rgba(14,45,33,0.7)]">
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-4">
-          <div className="h-14 w-14 rounded-2xl border border-amber-700/40 bg-[linear-gradient(135deg,#f7e7c9,#d1a96b)]" />
-          <div>
-            <h3 className="text-2xl font-semibold text-emerald-950">
-              {item.name}
-            </h3>
-            <p className="text-sm uppercase tracking-[0.3em] text-emerald-900/60">
-              Curated Edition
-            </p>
-          </div>
-        </div>
+    <div className="flex items-center gap-4 border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition">
+      {/* IMAGE */}
+      <img
+        src={item.img}
+        alt={item.name}
+        className="w-24 h-24 object-cover rounded-lg"
+      />
 
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="text-sm uppercase tracking-[0.25em] text-emerald-900/50">
-            Rs. {item.price}
-          </div>
-          <div className="rounded-full border border-emerald-900/10 bg-emerald-950/90 px-5 py-2 text-xs uppercase tracking-[0.35em] text-amber-50">
-            Total Rs. {item.price * item.quantity}
-          </div>
+      {/* DETAILS */}
+      <div className="flex-1 space-y-1">
+        <h3 className="text-lg font-semibold">{item.name}</h3>
+        <p className="text-sm text-gray-500">Unit Price: ₹{item.price}</p>
+        <p className="font-bold text-green-600">
+          Total: ₹{item.price * item.quantity}
+        </p>
+
+        {/* QUANTITY CONTROLS */}
+        <div className="flex items-center gap-3 mt-2">
+          <button
+            className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            onClick={() =>
+              dispatch(updateQuantity({ id: item.id, type: "decrease" }))
+            }
+          >
+            -
+          </button>
+
+          <span className="font-medium">{item.quantity}</span>
+
+          <button
+            className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            onClick={() =>
+              dispatch(updateQuantity({ id: item.id, type: "increase" }))
+            }
+          >
+            +
+          </button>
         </div>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
-        <button
-          className="rounded-full border border-emerald-900/15 bg-white px-4 py-2 text-xs uppercase tracking-[0.35em] text-emerald-950 transition hover:bg-emerald-50"
-          onClick={() => dispatch(increaseQty(item.id))}
-        >
-          Add One
-        </button>
-        <button
-          className="rounded-full border border-emerald-900/15 bg-white px-4 py-2 text-xs uppercase tracking-[0.35em] text-emerald-950 transition hover:bg-emerald-50"
-          onClick={() => dispatch(decreaseQty(item.id))}
-        >
-          Remove One
-        </button>
-        <button
-          className="rounded-full border border-amber-700/40 bg-amber-600/90 px-4 py-2 text-xs uppercase tracking-[0.35em] text-amber-50 transition hover:bg-amber-600"
-          onClick={() => dispatch(removeItem(item.id))}
-        >
-          Remove Item
-        </button>
-      </div>
+      {/* DELETE BUTTON */}
+      <button
+        onClick={() => dispatch(removeItem(item.id))}
+        className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
+      >
+        Delete
+      </button>
     </div>
   );
 }
